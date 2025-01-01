@@ -1,0 +1,51 @@
+appId: 'vizzy-app'
+productName: 'Vizzy App'
+artifactName: 'VizzyApp-installer-${version}.${ext}'
+
+copyright: 'Copyright © 2024 Abhinav VS'
+
+asar: true
+compression: 'maximum'
+
+files:
+  - '!{dist,.gitignore,.vscode}'
+
+extraResources:
+  - 'libraries'
+
+# Windows Configuration
+win: 
+  target: 
+    - target: 'nsis'
+      arch: 'x64'
+
+# Windows Installer Configuration
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+
+# macOS Configuration
+mac:
+  target:
+    - target: 'dmg'
+      arch:
+        - 'x64'
+        - 'arm64'
+  artifactName: 'VizzyApp-installer-${version}-${arch}.${ext}'
+  category: 'public.app-category.optimizations'
+
+# Linux Configuration
+linux: 
+  target: 'AppImage'
+  maintainer: 'Abhinav VS'
+  vendor: 'Abhinav VS'
+  synopsis: 'Vizzy App'
+  description: 'A more optimized and faster Vizzy experience'
+  category: 'Optimizations'
+
+
+directories:
+  buildResources: 'build'
+  output: 'dist'
