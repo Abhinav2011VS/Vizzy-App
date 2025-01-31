@@ -18,6 +18,7 @@ win:
   target: 
     - target: 'nsis'
       arch: 'x64'
+  artifactName: 'VizzyApp-installer-${version}.installer.${ext}'
 
 # Windows Installer Configuration
 nsis:
