@@ -124,47 +124,6 @@ function createMainWindow() {
       }
     }
   }, 500);
-
-  // **Minimize to Tray Instead of Closing**
-  mainWindow.on("close", (event) => {
-    event.preventDefault();
-    mainWindow.hide();
-    new Notification({ title: "App Minimized", body: "App is still running in the system tray." }).show();
-  });
-}
-
-// **Create Tray with Open, Clear Cache & Exit**
-function createTray() {
-  tray = new Tray(path.join(__dirname, "favicon.png"));
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: "Open App",
-      click: () => {
-        if (!mainWindow) {
-          createMainWindow();
-        } else {
-          mainWindow.show();
-        }
-        new Notification({ title: "App Opened", body: "App is now running." }).show();
-      },
-    },
-    {
-      label: "Clear Cache",
-      click: () => {
-        mainWindow.webContents.session.clearCache().then(() => {
-          new Notification({ title: "Cache Cleared", body: "All temporary files have been removed." }).show();
-        });
-      },
-    },
-    { type: "separator" },
-    {
-      label: "Exit",
-      click: () => app.quit(),
-    },
-  ]);
-
-  tray.setToolTip("Electron App");
-  tray.setContextMenu(contextMenu);
 }
 
 // **Boost Process Priority**
@@ -183,7 +142,6 @@ function boostElectronPriority() {
 // **App Startup Process**
 app.whenReady().then(() => {
   createSplashScreen();
-  createTray();
 
   // **Delay Main Window to Prioritize Splash**
   setTimeout(() => {
